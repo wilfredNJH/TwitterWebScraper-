@@ -13,8 +13,10 @@ class ScrapingInterface():
         self.usernameLabel.place(relx=0.5, rely=0.3,anchor=tk.CENTER)
         self.tagLabel = customtkinter.CTkLabel(master = pMaster, text="#TAG")
         self.tagLabel.place(relx=0.5, rely=0.4,anchor=tk.CENTER)
+        self.browserLabel = customtkinter.CTkLabel(master = pMaster, text="Browser Options : 1 - Chrome , 2 - Edge, 3 - Firefox")
+        self.browserLabel.place(relx=0.5, rely=0.5,anchor=tk.CENTER)
         self.iterationsLabel = customtkinter.CTkLabel(master = pMaster, text="Number of Iterations")
-        self.iterationsLabel.place(relx=0.5, rely=0.5,anchor=tk.CENTER)
+        self.iterationsLabel.place(relx=0.5, rely=0.6,anchor=tk.CENTER)
 
         # entrys 
         self.email = tk.StringVar()
@@ -29,9 +31,12 @@ class ScrapingInterface():
         self.tag = tk.StringVar()
         self.tagEntry = tk.Entry(master=pMaster,textvariable=self.tag,width=15)
         self.tagEntry.place(relx=0.5, rely=0.45,anchor=tk.CENTER)
+        self.browserOption = tk.IntVar()
+        self.browserOptionEntry = tk.Entry(master=pMaster,textvariable=self.browserOption,width=15)
+        self.browserOptionEntry.place(relx=0.5, rely=0.55,anchor=tk.CENTER)
         self.iterations = tk.IntVar()
         self.iterationsEntry = tk.Entry(master=pMaster,textvariable=self.iterations,width=15)
-        self.iterationsEntry.place(relx=0.5, rely=0.55,anchor=tk.CENTER)
+        self.iterationsEntry.place(relx=0.5, rely=0.65,anchor=tk.CENTER)
 
         # buttons 
         self.buttonRun = customtkinter.CTkButton(master=pMaster, text="run", command=self.run)
@@ -49,7 +54,8 @@ class ScrapingInterface():
 
     def run(self):
         # input run the web scraper 
-        self.twitterScraper = TwitterScraper(self.email.get(),self.password.get(),self.username.get(),self.tag.get(),self.isUsernameVerChecked.get())
+        self.twitterScraper = TwitterScraper(self.email.get(),self.password.get(),self.username.get(),self.tag.get(),
+                                             self.isUsernameVerChecked.get(),self.browserOption.get())
         self.twitterScraper.scrape_data(self.iterations.get())
         self.twitterScraper.save_data()
         
