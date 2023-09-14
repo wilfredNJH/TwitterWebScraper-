@@ -170,11 +170,20 @@ class TwitterScraper():
          
     def save_data(self):    
         # saving the tweet 
-        with open(self.tag + '.csv','w',newline='', encoding='utf-8') as f:
-            header = ['username','handle','postDate','responding','retweets','likes']
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(self.tweet_data)
+        if ":" in self.tag:
+        #if user want to scrape with the advanced search like "lang:en" 
+            self.tag = self.tag.replace(":", " ")
+            with open(self.tag + '.csv','w',newline='', encoding='utf-8') as f:
+                header = ['username','handle','postDate','responding','retweets','likes']
+                writer = csv.writer(f)
+                writer.writerow(header)
+                writer.writerows(self.tweet_data)
+        else:
+            with open(self.tag + '.csv','w',newline='', encoding='utf-8') as f:
+                header = ['username','handle','postDate','responding','retweets','likes']
+                writer = csv.writer(f)
+                writer.writerow(header)
+                writer.writerows(self.tweet_data)
 
 
 
